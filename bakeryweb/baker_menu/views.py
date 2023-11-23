@@ -5,6 +5,10 @@ import sqlite3
 
 # Create your views here.
 def home(request):
+    if request.method == "POST":
+        print("Ação realizada com sucesso")
+        items = request.POST.getlist('item[]')
+        print(f"Lista de compras: {items}")
     return render(request, 'painel_inicial/home.html')
 
 
