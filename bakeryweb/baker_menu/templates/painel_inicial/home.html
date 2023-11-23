@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+  <style>
+    /* Estilos CSS */
+    .float-btn {
+      position: fixed; /* Posicionamento fixo na tela */
+      bottom: 20px; /* Distância da parte inferior */
+      right: 20px; /* Distância da parte direita */
+      background-color: #007bff; /* Cor do botão */
+      color: #fff; /* Cor do texto */
+      border: none;
+      border-radius: 14px; /* Botão com formato circular */
+      width: 100px; /* Largura do botão */
+      height: 50px; /* Altura do botão */
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra */
+    }
+  </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,8 +59,8 @@
             <img src="https://shorturl.at/bcvNO" class="card-img-top" alt="Pão Frances">
             <div class="card-body">
               <h5 class="card-title">Pão Frances</h5>
-              <p class="card-text">Deliciosos Pães Franceses, sempre quentinhos</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text">Deliciosos Pães Franceses, sempre quentinhos.</p>
+              <a href="#" id="pao-frances" class="btn btn-primary" data-nome="Pão Francês">Adicionar</a>
             </div>
           </div>
         </div>
@@ -52,8 +69,8 @@
             <img src="https://shorturl.at/cKM38" class="card-img-top" alt="Pão de Queijo">
             <div class="card-body">
               <h5 class="card-title">Pão de Queijo</h5>
-              <p class="card-text">Delicioso Pão de queijo. Do forno direto para sua mesa</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text">Delicioso Pão de queijo. Do forno direto para sua mesa.</p>
+              <a href="#"  id="pao-de-queijo" class="btn btn-primary" data-nome="Pão de queijo">Adicionar</a>
             </div>
           </div>
         </div>
@@ -62,8 +79,8 @@
             <img src="https://shorturl.at/ghNZ8" class="card-img-top" alt="Bolo de Chocolate">
             <div class="card-body">
               <h5 class="card-title">Bolo de Chocolate</h5>
-              <p class="card-text">Delicioso Bolo de chocolate. Ótimo para festas</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text">Delicioso Bolo de chocolate.</p>
+              <a href="#" id="bolo-chocolate" class="btn btn-primary" data-nome="Bolo de Chocolate">Adicionar</a>
             </div>
           </div>
         </div>
@@ -74,8 +91,8 @@
             <img src="https://shorturl.at/pwQSU" class="card-img-top" alt="Pizza">
             <div class="card-body">
               <h5 class="card-title">Pizza</h5>
-              <p class="card-text">Deliciosa pizza. Diversos sabores</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text">Deliciosa Pizza.</p>
+              <a href="#" id="pizza" class="btn btn-primary" data-nome="Pizza">Adicionar</a>
             </div>
           </div>
         </div>
@@ -84,8 +101,8 @@
             <img src="https://shorturl.at/fmrTX" class="card-img-top" alt="pudim">
             <div class="card-body">
               <h5 class="card-title">Pudim</h5>
-              <p class="card-text">Delicioso Pudim. Ideal para sobremesas</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text">Delicioso Pudim.</p>
+              <a href="#" id="pudim" class="btn btn-primary" data-nome="Pudim">Adicionar</a>
             </div>
           </div>
         </div>
@@ -95,16 +112,91 @@
             <div class="card-body">
               <h5 class="card-title">Cupcake</h5>
               <p class="card-text">Deliciosos Cupcakes.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <a href="#" id="cupcake" class="btn btn-primary" data-nome="Cupcake">Adicionar</a>
             </div>
           </div>
         </div>
     </div>
+    <button class="float-btn" id="finalizar-compra">Comprar</button>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% csrf_token %}
+<script>
+  var csrftoken = $("[name=csrfmiddlewaretoken]").val()
+  var lista_compras = []
+  $(document).ready(function(){
+    var pao_frances = $("#pao-frances")
+    // var pao = $("#pao-frances").data('nome')
+    
+    $("#pao-frances").click(function(){
+      console.log("Botão clicado!")
+      $("#pao-frances").toggleClass("btn btn-primary btn btn-secondary")
+      lista_compras.push($("#pao-frances").data('nome'))
+      console.log(lista_compras)
+    })
+
+    $("#pao-de-queijo").click(function(){
+      // var pao_queijo = $("#pao-de-queijo").data('nome')
+      console.log("Botão clicado!")
+      $("#pao-de-queijo").toggleClass("btn btn-primary btn btn-secondary")
+      lista_compras.push($("#pao-de-queijo").data('nome'))
+      console.log(lista_compras)
+    })
+
+    $("#bolo-chocolate").click(function(){
+      console.log("Botão clicado!")
+      $("#bolo-chocolate").toggleClass("btn btn-primary btn btn-secondary")
+      lista_compras.push($("#bolo-chocolate").data('nome'))
+      console.log(lista_compras)
+    })
+
+    $("#pizza").click(function(){
+      console.log("Botão clicado!")
+      $("#pizza").toggleClass("btn btn-primary btn btn-secondary")
+      lista_compras.push($("#pizza").data('nome'))
+      console.log(lista_compras)
+    })
+
+    $("#pudim").click(function(){
+      console.log("Botão clicado!")
+      $("#pudim").toggleClass("btn btn-primary btn btn-secondary")
+      lista_compras.push($("#pudim").data('nome'))
+      console.log(lista_compras)
+    })
+
+    $("#cupcake").click(function(){
+      console.log("Botão clicado!")
+      $("#cupcake").toggleClass("btn btn-primary btn btn-secondary")
+      lista_compras.push($("#cupcake").data('nome'))
+      console.log(lista_compras)
+    })
+
+    $("#finalizar-compra").click(function(){
+      console.log("Compra realizada!")
+      
+      $.ajax({
+      url: "/",
+      type: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: {item: lista_compras},
+      success: function(response){
+        console.log("Ação realizada no Django!");
+        $("#finalizar-compra").toggleClass("btn btn-primary btn btn btn-success")
+        $("#finalizar-compra").text('Comprado')
+      },
+      error: function(error){
+        console.log("Erro ao chamar a view no Django!");
+      }
+    })
+
+    })
+  })
+
+</script>
 
 </body>
 </html>
