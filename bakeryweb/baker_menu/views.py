@@ -2,13 +2,36 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import MeuFormulario
 import sqlite3
+import json
 
 # Create your views here.
 def home(request):
+    connection = sqlite3.connect('produtos-sqlite.db')
+
+    cursor = connection.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS Produtos(
+                   produtos_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   items TEXT
+                    )           
+                    ''')
     if request.method == "POST":
         print("Ação realizada com sucesso")
         items = request.POST.getlist('item[]')
         print(f"Lista de compras: {items}")
+        if items:
+            lista_compra = [(item,) for item in items]
+            cursor.executemany('''
+                            INSERT INTO Produtos (items) VALUES(?)
+                            ''', lista_compra)
+            cursor.execute("SELECT * FROM Produtos ")
+            print(cursor.fetchall())
+            connection.commit()
+            connection.close()
+
+        else:
+            print('Lista de compras vazia!')
+        
     return render(request, 'painel_inicial/home.html')
 
 
