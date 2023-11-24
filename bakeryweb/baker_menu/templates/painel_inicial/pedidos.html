@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="https://www.svgrepo.com/show/475181/bread.svg">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row" >
+          <div class="col-md-12" style="background-color:rgb(245, 236, 112)">
+            <header>
+              <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <img src="https://www.svgrepo.com/show/475181/bread.svg" width="32px" alt="logo padaria">
+                  <a class="navbar-brand" href="#">Pãozinho de Ouro</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cadastro' %}">Cadastro</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'pedidos' %}">Pedidos</a>
+                      </li>
+                  </div>
+                </div>
+              </nav>
+            </header>
+          
+        </div>
+        </div>
+    </div>
+    <div style="padding: 12px;" />
+    
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Pedido</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for pedido in dados %}
+                <tr>
+                    <th>{{ pedido.0 }}</th>
+                    <!-- <td> -->
+                        <ul>
+                            {% for item in pedido.1 %}
+                               <td>{{ item }}</td> 
+                            {% endfor %}
+                        </ul>
+                    <!-- </td> -->
+                </tr>
+            {% endfor %}
+         
+        </tbody>
+      </table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
